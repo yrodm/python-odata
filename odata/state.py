@@ -244,6 +244,9 @@ class EntityState(object):
 
         # Deep insert from nav properties
         for prop_name, prop in es.navigation_properties:
+            if prop.foreign_key:
+                insert_data.pop(prop.foreign_key, None)
+
             value = getattr(entity, prop_name, None)
             """:type : None | odata.entity.EntityBase | list[odata.entity.EntityBase]"""
             if value is not None:
